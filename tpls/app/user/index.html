@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户信息管理</title>
+    <script type="text/javascript">
+        function doDel(url) {
+            if(confirm('确认删除吗?')) {
+                window.location = url
+            }
+        }
+    </script>
+</head>
+<body>
+    <center>
+        {% include "app/user/header.html" %}
+        <table width='800' border='1'>
+            <tr>
+                <th>id号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>电话</th>
+                <th>添加时间</th>
+                <th>操作</th>
+            </tr>
+            {% for u in userList %}
+            <tr>
+                <td>{{u.id}}</td>
+                <td>{{u.name}}</td>
+                <td>{{u.age}}</td>
+                <td>{{u.phone}}</td>
+                <td>{{u.createTime | date:"Y-m-d H:i:s"}}</td>
+                <td>
+                    <a href="{% url 'edituser' u.id %}">编辑</a>
+                    &nbsp;&nbsp; 
+                    <a href="javascript:doDel('{% url 'deluser' u.id %}')">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+</body>
+</html>
